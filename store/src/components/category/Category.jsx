@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { MyContext } from "../provider/Provider";
 import { useContext } from "react";
 
-function Category({ name, id }) {
+function Category({ name, id = null }) {
 
     const { setCategory } = useContext(MyContext);
 

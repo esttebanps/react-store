@@ -1,6 +1,6 @@
 export const GetApiProducts = async (title, categoryId) => {
     try {
-        const response = await fetch(`https://api.escuelajs.co/api/v1/products?title=${title}&categoryId=${categoryId}`);
+        const response = await fetch(`https://api.escuelajs.co/api/v1/products?title=${title}&categoryId=${categoryId != null ? categoryId : ''}`);
         const data = await response.json();
 
         if (Array.isArray(data)) {

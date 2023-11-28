@@ -27,11 +27,9 @@ function App() {
     async function fetchData() {
       try {
         const products = await GetApiProducts(searchWord, category);
-        const categories = await GetApiCategories(searchWord);
-        console.log('Current category:', category);
+        const categories = await GetApiCategories();
         setProducts(products);
         setCategories(categories);
-        console.log(categories);
       } catch (error) {
         console.error(error.message);
       }
@@ -53,27 +51,33 @@ function App() {
           Categories
         </h1>
         <section className='w-full flex flex-row flex-wrap gap-4'>
+          <Category name='All'/>
           { categories && categories.map(c => <Category key={c.id} name={c.name} id={c.id}/>) }
         </section>
         <h1 className="text-2xl my-6 self-start text-primeColor font-bold">
           Products List
         </h1>
-        <section className='w-full flex flex-col sm:px-32 sm:grid grid-cols-1 gap-4  md:grid-cols-2 lg:grid-cols-3'>
-          {
-            products && products.map(p => {
-              return(<Product 
-                key={ p.id } 
-                textButton='Buy'
-                title={ p.title }
-                price={ p.price }
-                description={ p.description }
-                image={ p.images[0] }
-                id={ p.id }
-              />
-             )
-            })
-          }
-        </section>
+        {
+          products.length > 0 ? (
+            <section className="w-full flex flex-col sm:px-32 sm:grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {products.map((p) => (
+                <Product
+                  key={p.id}
+                  textButton="Buy"
+                  title={p.title}
+                  price={p.price}
+                  description={p.description}
+                  image={p.images[0]}
+                  id={p.id}
+                />
+              ))}
+            </section>
+          ) : (
+            <div className="w-full flex justify-center">
+              <p>No hay productos para mostrar</p>
+            </div>
+          )
+        }
       </main>
     </>
   );

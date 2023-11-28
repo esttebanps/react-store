@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import Button from '../button/Button.jsx';
+import TrashIcon from "../icons/IconTrash.jsx";
 import { useContext } from 'react';
 import { MyContext } from '../provider/Provider.jsx';
 
-function Product({ title, price, description, image, textButton, id, quantity }) {
+function Product({ title, price, description, image, id, quantity }) {
 
     const {cart, setCart } = useContext(MyContext)
 
@@ -28,6 +29,18 @@ function Product({ title, price, description, image, textButton, id, quantity })
           setCart((prevCart) => [...prevCart, { id, title, price, image, description, quantity: 1 }]);
         }
     };
+
+    const handleDelete = () => {
+        setCart((prevCart) =>
+            prevCart
+                .map((product) =>
+                product.id === id
+                    ? { ...product, quantity: product.quantity - 1 }
+                    : product
+                )
+                .filter((product) => product.quantity > 0)
+        );
+    }
 
     Product.propTypes = {
         title: PropTypes.string.isRequired,
@@ -63,8 +76,18 @@ function Product({ title, price, description, image, textButton, id, quantity })
                         </h2>
                         <p className="text-[#767676] text-[14px]">${ price }</p>
                     </div>
-                    <p>{ quantity }</p>
-                    <Button text={ textButton } onClick={ handleAddToCart } />
+                    
+                    {quantity > 0 ? (
+                        <>
+                            <div className='flex gap-2'>
+                                <p className='font-bold'>Cantidad:</p>
+                                <p className='text-[#767676]'>{ quantity }</p>
+                            </div>
+                            <Button text={ <TrashIcon /> } onClick={ handleDelete } />
+                        </>
+                    ) : (
+                        <Button text='Add To cart' onClick={ handleAddToCart } />
+                    )}
                 </div>
             </section>
         </>

@@ -11,8 +11,7 @@ const Provider = ({ children }) => {
   const [categories, setCategories ] = useState([]);
   const [cart, setCart ] = useState([]);
 
-
-  console.log(`Provider.jsx - openCart >>> ${openCart}`);
+  const quantity = cart.length
 
   const getTotalPrice = () => {
     return cart.reduce((total, product) => total + product.price * product.quantity, 0);
@@ -36,7 +35,8 @@ const Provider = ({ children }) => {
       setCategories,
       cart,
       setCart,
-      getTotalPrice
+      getTotalPrice,
+      quantity
       }}>
       {children}
     </MyContext.Provider>
