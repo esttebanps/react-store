@@ -4,6 +4,7 @@ import {useState, createContext} from 'react'
 export const MyContext = createContext();
 
 const Provider = ({ children }) => {
+  const [openModal, setOpenModal] = useState(false);
   const [openCart, setOpenCart] = useState(false);
   const [searchWord, setSearchWord ] = useState('');
   const [products, setProducts ] = useState([]);
@@ -11,8 +12,7 @@ const Provider = ({ children }) => {
   const [categories, setCategories ] = useState([]);
   const [cart, setCart ] = useState([]);
 
-
-  console.log(`Provider.jsx - openCart >>> ${openCart}`);
+  const quantity = cart.length
 
   const getTotalPrice = () => {
     return cart.reduce((total, product) => total + product.price * product.quantity, 0);
@@ -23,21 +23,26 @@ const Provider = ({ children }) => {
   };
 
   return (
-    <MyContext.Provider value={{
-      openCart, 
-      setOpenCart, 
-      searchWord, 
-      setSearchWord, 
-      products, 
-      setProducts, 
-      category, 
-      setCategory, 
-      categories, 
-      setCategories,
-      cart,
-      setCart,
-      getTotalPrice
-      }}>
+    <MyContext.Provider
+      value={{
+        openModal,
+        setOpenModal,
+        openCart,
+        setOpenCart,
+        searchWord,
+        setSearchWord,
+        products,
+        setProducts,
+        category,
+        setCategory,
+        categories,
+        setCategories,
+        cart,
+        setCart,
+        getTotalPrice,
+        quantity,
+      }}
+    >
       {children}
     </MyContext.Provider>
   );
