@@ -7,14 +7,14 @@ function Button({ text, onClick }) {
         onClick: PropTypes.func, // Opcional: Validación para 'onClick' como una función (puedes ajustar según tus necesidades).
     };
 
-    return(
-        <button 
-            className="py-1 px-3 flex flex-row justify-center items-center rounded-lg bg-[#E54660] text-white sm:w-full hover:bg-[#ff4867]"
-            onClick={ onClick }
-        >
-            { text }
-        </button>
-    )
+    return (
+      <button
+        className="py-1 px-3 flex flex-row justify-center items-center rounded-lg bg-[#E54660] text-white sm:w-full hover:bg-[#ff4867]"
+        onClick={onClick}
+      >
+        {text}
+      </button>
+    );
 }
 
 export default Button; 
