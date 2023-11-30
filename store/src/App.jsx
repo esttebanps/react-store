@@ -8,19 +8,23 @@ import Search from './components/search/Search.jsx'
 import Modal from './components/modal/Modal.jsx';
 import { MyContext } from './components/provider/Provider.jsx' 
 import { useContext, useEffect } from 'react'
-import { GetApiProducts, GetApiCategories } from './services/api.js';
+import { GetApiProducts, GetApiCategories, Login } from './services/api.js';
+import FormProduct from './components/formProduct/FormProduct.jsx';
 
 function App() {
   const { 
     openCart, 
     setOpenCart, 
+    openForm,
+    setOpenForm,
     searchWord, 
     products, 
     setProducts, 
     category, 
     categories, 
     setCategories,
-    openModal
+    openModal,
+    isAuthenticate
   } = useContext(MyContext);
 
   const icon = <CartIcon />
@@ -32,6 +36,7 @@ function App() {
         const categories = await GetApiCategories();
         setProducts(products);
         setCategories(categories);
+        localStorage.setItem('minombre', 'Esteban Patiño')
       } catch (error) {
         console.error(error.message);
       }
@@ -43,10 +48,12 @@ function App() {
   return (
     <>
       <Cart />
+      <FormProduct />
 
       <main className="py-5 px-6 flex flex-col items-center md:px-28">
         <div className="flex flex-row gap-4">
           <ButtonIcon icon={icon} onClick={() => setOpenCart(!openCart)} />
+          <ButtonIcon icon='text' onClick={() => setOpenForm(!openForm)} />
           <Search />
         </div>
         <h1 className="text-2xl my-6 self-start text-primeColor font-bold">
