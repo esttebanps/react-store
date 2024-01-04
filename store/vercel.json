@@ -1,0 +1,9 @@
+{
+    "name": "mi-aplicacion",
+    "node_version": "16.13.2",
+    "exclude": ["node_modules", ".git"],
+    "include": ["public", "src"],
+    "env": {
+      "FOO": "bar"
+    }
+  }
